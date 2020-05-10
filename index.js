@@ -45,4 +45,9 @@ bot.on('message', msg =>{
         })
     }
 })
+bot.on('guildMemberAdd', member=>{
+    guildWelcomeChannels.findOne({where: {guild_id: member.guild.id}}).then(obj =>{
+        member.guild.channels.cache.get(obj.get('channel_id')).send(`<@${member.user.id}>, Welcome to the server!`)
+    })
+})
 bot.login(process.env.TOKEN)
