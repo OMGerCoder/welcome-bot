@@ -35,6 +35,14 @@ bot.on('message', msg =>{
             guildWelcomeChannels.create({ guild_id: msg.guild.id, channel_id: channel.id })
             return msg.channel.send('Done!');
         })
+    } else if(cmd === 'unlinkwelcomechannel') {
+        guildWelcomeChannels.findOne({where: {guild_id: msg.guild.id}}).then(obj =>{
+            if(obj) {
+                guildWelcomeChannels.destroy({where: {guild_id: msg.guild.id}})
+                return msg.channel.send('Done!')
+            }
+            return msg.channel.send('You don\'t have a channel linked!')
+        })
     }
 })
 bot.login(process.env.TOKEN)
