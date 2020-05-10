@@ -1,6 +1,8 @@
 const { Client } = require('discord.js');
 const bot = new Client();
 const Sequelize = require('sequelize');
+const dotenv = require('dotenv')
+dotenv.config();
 const db = new Sequelize('db', 'user', 'password', {
     dialect: 'sqlite',
     logging: false,
@@ -20,3 +22,4 @@ bot.on('ready', () =>{
     console.log('Ready');
     guildWelcomeChannels.sync();
 })
+bot.login(process.env.TOKEN)
