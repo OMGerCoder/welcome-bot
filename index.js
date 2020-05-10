@@ -27,6 +27,7 @@ bot.on('message', msg =>{
     const args = msg.content.slice(1).split(' ');
     const cmd = args.shift().toLowerCase()
     if(cmd === 'linkwelcomechannel') {
+        if(!msg.member.hasPermission('ADMINISTRATOR')) return msg.channel.send('You can\'t do that.');
         const channel = msg.mentions.channels.first() || msg.guild.channels.cache.get(args[0]);
         if(!channel) return msg.channel.send('Invalid channel.')
         
@@ -36,6 +37,7 @@ bot.on('message', msg =>{
             return msg.channel.send('Done!');
         })
     } else if(cmd === 'unlinkwelcomechannel') {
+        if(!msg.member.hasPermission('ADMINISTRATOR')) return msg.channel.send('You can\'t do that.');
         guildWelcomeChannels.findOne({where: {guild_id: msg.guild.id}}).then(obj =>{
             if(obj) {
                 guildWelcomeChannels.destroy({where: {guild_id: msg.guild.id}})
